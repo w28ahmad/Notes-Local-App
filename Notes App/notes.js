@@ -1,6 +1,6 @@
 const yargs = require('yargs')
 
-const func = require("./notesFunctions.js/index.js")
+const func = require("./notesFunctions")
 
 yargs.version('1.1.0')
 yargs.command({
