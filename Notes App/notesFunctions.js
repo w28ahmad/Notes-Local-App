@@ -64,5 +64,3 @@ module.exports= {
     add,
     read
 }
-
-// module.exports = remove
