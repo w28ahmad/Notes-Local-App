@@ -1,4 +1,5 @@
 const fs = require("fs");
+const chalk  = require("chalk")
 
 const notes = "Notes.json";
 
@@ -19,8 +20,12 @@ remove = (title) => {
 
 list = ()=>{
     try{
-        prevNote = JSON.parse(fs.readFileSync(notes));
-        console.log(prevNote);
+        allNotes = JSON.parse(fs.readFileSync(notes));
+        allNotes.forEach((element)=>{
+            console.log(chalk.blue.inverse("Title: "), chalk.blue(element.title))
+            console.log(chalk.green.inverse("Body:  "), chalk.green(element.body))
+            console.log("---------------------------------------------------------")
+        })
     }catch(e){
         return console.log("no notes exist");
     }
@@ -31,9 +36,11 @@ read = (title)=>{
     try{
         prevNote = JSON.parse(fs.readFileSync(notes));
         var note = prevNote.filter(note=> note.title === title);
-        console.log(`Note Found
-        Title: ${note[0].title}
-        Body: ${note[0].body}`);
+        note.forEach((element)=>{
+            console.log(chalk.blue.inverse("Title: "), chalk.blue(element.title))
+            console.log(chalk.green.inverse("Body:  "), chalk.green(element.body))
+            console.log("---------------------------------------------------------")
+        })
     }catch(e){
         console.log("There are no existing notes");
     }

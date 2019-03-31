@@ -29,7 +29,7 @@ yargs.command({
     },
     handler: function(argv){
         console.log("Adding note");
-        add(argv);
+        func.add(argv);
     }
 }).command({
     command: "remove",
@@ -43,13 +43,13 @@ yargs.command({
     },
     handler: function(argv){
         console.log("Removing the note...")
-        remove(argv.title);
+        func.remove(argv.title);
     }
 }).command({    
     command: "list",
     describe: "list all notes",
     handler: function(){
-        list();
+        func.list();
     }
 }).command({
     command: "read",
@@ -63,6 +63,6 @@ yargs.command({
     },
     handler: function(argv){
         console.log("Finding the note");
-        read(argv.title);
+        func.read(argv.title)
     }
 }).argv
