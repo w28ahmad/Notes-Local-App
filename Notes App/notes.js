@@ -3,13 +3,6 @@ const yargs = require('yargs')
 const func = require("./notesFunctions")
 
 yargs.version('1.1.0')
-yargs.command({
- command: 'add',
- describe: 'Add a new note',
- handler: function () {
- console.log('Adding a new note!')
- }
-})
 
 yargs.command({
     command: "add",
@@ -64,5 +57,26 @@ yargs.command({
     handler: function(argv){
         console.log("Finding the note");
         func.read(argv.title)
+    }
+}).command({
+    command: "completed",
+    describe: "Show completed Notes",
+    handler: function(){
+        console.log("Finding Notes")
+        func.completed()
+    }
+}).command({
+    command: "done",
+    describe: "For the notes that are finished.",
+    builder:{
+        title: {
+            describe: "Note title",
+            demand: true,
+            type: "String"
+        }
+    },
+    handler: function(argv){
+        console.log("Adding the note to the completed list...")
+        func.done(argv)
     }
 }).argv
