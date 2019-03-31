@@ -1,6 +1,10 @@
 const fs = require("fs");
 const chalk  = require("chalk")
 
+// For user input
+var standard_input = process.stdin;
+standard_input.setEncoding('utf-8')
+
 const notes = "Notes.json";
 // create a way to have sections like completed but for End week, update ...
 
@@ -11,12 +15,44 @@ remove = (title) => {
     }catch(e){
         return console.log("No notes exist")
     }
-    var newNote = prevNote.filter(note=> note.title != title)
-    if(newNote.length < prevNote.length){
-        fs.writeFileSync(notes, JSON.stringify(newNote))
-        console.log("Removed");
-    }else{
-        console.log("Error, This note title does not exist. Please use list to see the notes");
+    var newNote = prevNote.filter(note=> note.title === title)
+    newNote.forEach((element)=>{
+            console.log(chalk.blue.inverse("Title: "), chalk.blue(element.title))
+            console.log(chalk.green.inverse("Body:  "), chalk.green(element.body))
+            console.log("---------------------------------------------------------")
+    })
+    // console.log(prevNote.length)
+    if(newNote.length > 1){
+        console.log("Please enter a list of numbers for which ones you want to remove, ex 1 2 3 or enter all for all")
+        standard_input.on('data', function (data) {
+            if(data === "all\r\n"){
+                console.log("I have complete this part... Should not be too hard");
+                process.exit();
+            }else{
+                data = data.split(" ").map(function(item) {
+                    return parseInt(item, 10);
+                });
+
+                for(var i = 0; i < data.length; i++){
+                    if(isNaN(data[i])){
+                        return console.log("Incorrect Input")
+                    }
+                }
+                data.forEach((num)=>{
+                    var index = prevNote.indexOf(newNote[num])
+                    if (index > -1) {
+                        prevNote.splice(index, 1);
+                     }
+                     
+                    })
+
+                fs.writeFile(notes, JSON.stringify(prevNote),()=>{
+                    console.log("Notes Removed!")
+                    process.exit();
+
+                })
+            }
+        });
     }
 }
 

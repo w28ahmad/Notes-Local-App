@@ -49,7 +49,7 @@ yargs.command({
     }
 }).command({
     command: "read",
-    aliases: ["r"],
+    aliases: ["rd"],
     describe: "Read a note",
     builder:{
         title:{
