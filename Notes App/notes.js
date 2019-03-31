@@ -7,6 +7,7 @@ yargs.version('1.1.0')
 yargs.command({
     command: "add",
     describe: "Add a new note",
+    aliases: ["a"],
     builder: {
         title:{
             describe: "Note Tite",
@@ -27,6 +28,7 @@ yargs.command({
 }).command({
     command: "remove",
     describe: "Remove a note",
+    aliases: ["r"],
     builder: {
         title: {
             describe: "Note Title",
@@ -41,11 +43,13 @@ yargs.command({
 }).command({    
     command: "list",
     describe: "list all notes",
+    aliases: ["l"],
     handler: function(){
         func.list();
     }
 }).command({
     command: "read",
+    aliases: ["r"],
     describe: "Read a note",
     builder:{
         title:{
@@ -61,13 +65,15 @@ yargs.command({
 }).command({
     command: "completed",
     describe: "Show completed Notes",
+    aliases: ["c"],
     handler: function(){
         console.log("Finding Notes")
         func.completed()
     }
 }).command({
     command: "done",
-    describe: "For the notes that are finished.",
+    describe: "This note is completed",
+    aliases: ["d"],
     builder:{
         title: {
             describe: "Note title",

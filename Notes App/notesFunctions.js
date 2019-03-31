@@ -2,6 +2,7 @@ const fs = require("fs");
 const chalk  = require("chalk")
 
 const notes = "Notes.json";
+// create a way to have sections like completed but for End week, update ...
 
 remove = (title) => {
     // This remove function might remove all the notes with that name....
