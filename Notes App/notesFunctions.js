@@ -23,9 +23,8 @@ remove = (title) => {
         return console.log("No notes exist")
     }
     var newNote = prevNote.filter(note=> note.title === title)
-    display(newNote)
-    // console.log(prevNote.length)
     if(newNote.length > 1){
+        display(newNote)
         console.log("Please enter a list of numbers for which ones you want to remove, ex 1 2 3 or enter all for all")
         standard_input.on('data', function (data) {
             if(data === "all\r\n"){
@@ -56,6 +55,11 @@ remove = (title) => {
                 })
             }
         });
+    }else if(newNote.length === 1){
+        otherNotes = prevNote.filter(note => note.title !== title)
+        fs.writeFile(notes, JSON.stringify(otherNotes), ()=>{
+            console.log("Note Removed!")
+        })
     }
 }
 
