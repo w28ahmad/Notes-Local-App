@@ -8,19 +8,22 @@ standard_input.setEncoding('utf-8')
 const notes = "Notes.json";
 // create a way to have sections like completed but for End week, update ...
 
+display = (newNote) =>{
+    newNote.forEach((element)=>{
+        console.log(chalk.blue.inverse("Title: "), chalk.blue(element.title))
+        console.log(chalk.green.inverse("Body:  "), chalk.green(element.body))
+        console.log("---------------------------------------------------------")
+    })
+}
+
 remove = (title) => {
-    // This remove function might remove all the notes with that name....
     try{
         var prevNote = JSON.parse(fs.readFileSync(notes));
     }catch(e){
         return console.log("No notes exist")
     }
     var newNote = prevNote.filter(note=> note.title === title)
-    newNote.forEach((element)=>{
-            console.log(chalk.blue.inverse("Title: "), chalk.blue(element.title))
-            console.log(chalk.green.inverse("Body:  "), chalk.green(element.body))
-            console.log("---------------------------------------------------------")
-    })
+    display(newNote)
     // console.log(prevNote.length)
     if(newNote.length > 1){
         console.log("Please enter a list of numbers for which ones you want to remove, ex 1 2 3 or enter all for all")
@@ -60,11 +63,7 @@ list = ()=>{
     try{
         var allNotes = JSON.parse(fs.readFileSync(notes))
         var newNote = allNotes.filter(note=> note.completed===false)
-        newNote.forEach((element)=>{
-            console.log(chalk.blue.inverse("Title: "), chalk.blue(element.title))
-            console.log(chalk.green.inverse("Body:  "), chalk.green(element.body))
-            console.log("---------------------------------------------------------")
-        })
+        display(newNote)
     }catch(e){
         return console.log("no notes exist");
     }
@@ -74,11 +73,7 @@ read = (title)=>{
     try{
         var prevNote = JSON.parse(fs.readFileSync(notes));
         var note = prevNote.filter(note=> note.title === title);
-        note.forEach((element)=>{
-            console.log(chalk.blue.inverse("Title: "), chalk.blue(element.title))
-            console.log(chalk.green.inverse("Body:  "), chalk.green(element.body))
-            console.log("---------------------------------------------------------")
-        })
+        display(note)
     }catch(e){
         console.log("There are no existing notes");
     }
@@ -109,11 +104,7 @@ completed = () =>{
         var prevNote = JSON.parse(fs.readFileSync(notes));
         var note = prevNote.filter(note=> note.completed === true);
         if(note.length === 0){throw e}
-            note.forEach((element)=>{
-                console.log(chalk.blue.inverse("Title: "), chalk.blue(element.title))
-                console.log(chalk.green.inverse("Body:  "), chalk.green(element.body))
-                console.log("---------------------------------------------------------")
-        })
+        display(note)
     }catch(e){
         console.log("There are no completed notes")
     }
